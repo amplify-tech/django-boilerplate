@@ -1,0 +1,16 @@
+# Core
+Django==5.2
+djangorestframework==3.16
+
+# CORS for connecting Frontend
+django-cors-headers==4.7
+
+# Environment variables
+python-dotenv==1.1
+#  Database setup
+psycopg2-binary
+dj-database-url==2.3
+
+# For production server
+gunicorn                      
+whitenoise>=6.0               # Serve static files in prod
