@@ -6,12 +6,12 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',  
-        'NAME': 'school_db', 
-        'USER': 'DB_USER', 
-        'PASSWORD': 'DB_PSWD', 
-        'HOST': 'localhost', 
-        'PORT': '5432', 
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "school_db",
+        "USER": "DB_USER",
+        "PASSWORD": "DB_PSWD",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
