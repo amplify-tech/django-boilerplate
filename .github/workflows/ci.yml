@@ -12,7 +12,7 @@ jobs:
 
     env:
       DJANGO_SETTINGS_MODULE: config.settings.development
-      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     defaults:
       run:
