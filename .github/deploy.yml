@@ -1,9 +1,8 @@
 name: CD - Deploy to GCP (Manual)
 
 on:
-  push:
-    branches: [ cicd ]
-  workflow_dispatch:  # Manual trigger
+  pull_request:
+    branches: [ main ]
 
 jobs:
   deploy:
