@@ -1,0 +1,45 @@
+name: CD - Deploy to GCP (Manual)
+
+on:
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  deploy:
+    name: Deploy Django App to Cloud Run (GCP Cloud Build)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Submit build to Cloud Build
+      run: |
+        IMAGE=asia-south2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-repo/django-app
+        gcloud builds submit . --tag $IMAGE \
+
+      #  Set secrets from secret manager and set ENV variables Now
+    - name: Deploy to Cloud Run
+      run: |
+        IMAGE=asia-south2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/django-repo/django-app
+        gcloud run deploy ${{ secrets.CLOUD_RUN_SERVICE }} \
+          --image $IMAGE \
+          --platform managed \
+          --region asia-south2 \
+          --allow-unauthenticated \
+          --update-secrets app-config=app-config:latest
+          --set-env-vars DJANGO_SETTINGS_MODULE=config.settings.production \
+          --set-env-vars DB_PORT=5432 \
+          --set-env-vars DB_NAME=school \
+          --set-env-vars DB_USER=djuser \
+          --set-env-vars ALLOWED_HOSTS=django-app-758990898782.asia-south2.run.app 
