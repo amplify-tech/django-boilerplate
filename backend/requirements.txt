@@ -13,7 +13,6 @@ dj-database-url==2.3
 
 # For production server
 gunicorn                      
-whitenoise>=6.0               # Serve static files in prod
 
 # for Testing
 pytest==8.3.5
