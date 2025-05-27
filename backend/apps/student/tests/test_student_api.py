@@ -28,7 +28,7 @@ def create_student(student_data):
 @pytest.mark.django_db
 def test_create_student(api_client, student_data):
     url = "/api/students/"
-    response = api_client.post(url, student_data)
+    response = api_client.post(url, student_data, format="json")
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data["name"] == student_data["name"]
 
