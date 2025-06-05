@@ -6,11 +6,15 @@ from django.core.exceptions import ObjectDoesNotExist
 from .serializers import StudentSerializer
 from .services.student_service import StudentService
 
+from .tasks import send_welcome_email
+
 
 class StudentListCreateView(APIView):
     def get(self, request):
         students = StudentService.list_students()
         serializer = StudentSerializer(students, many=True)
+        send_welcome_email.delay(5)  # type: ignore
+
         return Response(serializer.data)
 
     def post(self, request):

@@ -69,6 +69,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://django-app-758990898782.asia-south2.run.app",
 ]
 
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
